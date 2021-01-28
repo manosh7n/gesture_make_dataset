@@ -5,9 +5,9 @@ import os
 import numpy as np
 
 
-gestures = ['hello', 'money', 'bye']
+gestures = ['hello', 'money', 'bye', 'good', 'mom']
 dataset = []
-max_len = 1134
+max_len = 1764
 filler = [-1.0]*63
 
 def join_all_gesture():
@@ -26,7 +26,7 @@ def join_all_gesture():
                     else:
                         row.extend(filler)
                     front = not front
-
+                row.append(i)
                 print(*row, file=out)
 
 

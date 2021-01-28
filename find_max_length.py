@@ -4,7 +4,7 @@
 import os
 import numpy as np
 
-gestures = ['money', 'bye', 'hello']
+gestures = ['money', 'bye', 'hello', 'good', 'mom']
 full_length = []
 
 def join_points():

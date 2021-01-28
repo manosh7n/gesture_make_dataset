@@ -2,7 +2,7 @@
 
 import os
 
-dir = 'dataset/bye'
+dir = 'dataset/good'
 
 list_of_gest = sorted(os.listdir(dir))
 for folder in list_of_gest:

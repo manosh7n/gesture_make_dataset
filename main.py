@@ -7,16 +7,18 @@ import cv2
 import mediapipe as mp
 import os
 
+fourcc = cv2.VideoWriter_fourcc(*"MJPG")
+writer = cv2.VideoWriter('output_01.avi', fourcc, 10, (640, 480), True)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
-    min_detection_confidence=0.55, min_tracking_confidence=0.5)
+    min_detection_confidence=0.50, min_tracking_confidence=0.5, max_num_hands=1)
 cap = cv2.VideoCapture(0)
 
 count_gest = 0
 state = False
-dir_name = 0
+dir_name = 1000
 
 GESTURE = 'bye'
 
@@ -45,6 +47,8 @@ while cap.isOpened():
     cv2.imshow('MediaPipe Hands', image)
     if count_gest % 3 == 0 and state:
         cv2.imwrite(f'dataset/{GESTURE}/{dir_name}/a_{count_gest}.png', image)
+        if writer is not None:
+            writer.write(image)
 
     key = cv2.waitKey(5)
     if key & key == 27:
@@ -59,6 +63,10 @@ while cap.isOpened():
         state = not state
 
     count_gest += 1
+
+
+if writer is not None:
+    writer.release()
 
 hands.close()
 cap.release()

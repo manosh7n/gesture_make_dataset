@@ -8,7 +8,7 @@ mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
     min_detection_confidence=0.55, min_tracking_confidence=0.5)
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 model = keras.models.load_model('model.h5')
 
@@ -16,7 +16,7 @@ count_gest = 0
 state = False
 gesture = []
 filler = [-1.0]*63
-gestures = ['hello', 'money', 'bye']
+gestures = ['hello', 'money', 'bye', 'good', 'mom']
 
 while cap.isOpened():
     success, image = cap.read()
@@ -49,7 +49,7 @@ while cap.isOpened():
             print(f'НАЧАЛО ЗАПИСИ')
         else:
             length = len(gesture)
-            diff = (1134 - length) // 63
+            diff = (1764 - length) // 63
             front = True
             for _ in range(diff):
                 if front:
@@ -58,7 +58,7 @@ while cap.isOpened():
                     gesture.extend(filler)
                 front = not front
 
-            gesture = np.array(gesture).reshape((-1, 18, 63))
+            gesture = np.array(gesture).reshape((-1, 28, 63))
             pred = np.argmax(model.predict(gesture)[0])
             print(gestures[pred])
 
